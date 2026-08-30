@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>invert.inn - Professional VFD Store</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-slate-100 font-sans text-slate-800 min-h-screen flex flex-col">
+  
+  <header class="bg-white/95 backdrop-blur border-b sticky top-0 z-40 px-6 py-4 flex items-center justify-between shadow-sm">
+    <div class="flex items-center gap-4">
+      <button id="menuBtn" class="text-slate-700 text-xl focus:outline-none p-1 hover:text-indigo-600 transition">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <div class="flex items-center gap-2">
+        <div class="bg-indigo-600 text-white p-2.5 rounded-2xl font-black text-xs">i.i</div>
+        <h1 class="text-base font-black tracking-tight">invert<span class="text-indigo-600">.inn</span></h1>
+      </div>
+    </div>
+    <div class="relative w-56 sm:w-72">
+      <i class="fa-solid fa-search absolute left-3.5 top-3 text-slate-400 text-xs"></i>
+      <input type="text" id="searchInput" onkeyup="filterProducts()" placeholder="Search VFD models..." class="bg-slate-100 pl-10 pr-4 py-2.5 rounded-2xl text-xs w-full border-none outline-none focus:ring-2 focus:ring-indigo-600/20">
+    </div>
+  </header>
+
+  <div id="mobileSidebar" class="fixed inset-0 bg-slate-900/60 z-50 hidden transition-opacity">
+    <div class="bg-white w-72 h-full p-6 shadow-2xl flex flex-col justify-between">
+      <div class="space-y-6">
+        <div class="flex justify-between items-center border-b pb-4">
+          <h2 class="font-black text-sm text-slate-900">Menu Categories</h2>
+          <button id="closeBtn" class="text-slate-400 hover:text-slate-700 p-1"><i class="fa-solid fa-xmark text-lg"></i></button>
+        </div>
+        <nav class="space-y-2 text-xs font-bold text-slate-700">
+          <button onclick="filterCategory('All'); closeSidebar();" class="w-full text-left px-4 py-3 rounded-2xl hover:bg-indigo-50 hover:text-indigo-600 transition">All Products</button>
+          <button onclick="filterCategory('VFD Drives'); closeSidebar();" class="w-full text-left px-4 py-3 rounded-2xl hover:bg-indigo-50 hover:text-indigo-600 transition">VFD Drives</button>
+          <button onclick="filterCategory('Solar Inverters'); closeSidebar();" class="w-full text-left px-4 py-3 rounded-2xl hover:bg-indigo-50 hover:text-indigo-600 transition">Solar Inverters</button>
+          <button onclick="filterCategory('Servo Motors'); closeSidebar();" class="w-full text-left px-4 py-3 rounded-2xl hover:bg-indigo-50 hover:text-indigo-600 transition">Servo Motors & Drives</button>
+        </nav>
+      </div>
+      <div class="text-[10px] text-slate-400 text-center">&copy; 2026 invert.inn</div>
+    </div>
+  </div>
+
+  <!-- BANNER -->
+  <section class="max-w-7xl w-full mx-auto px-6 pt-6">
+    <div class="bg-indigo-900 text-white p-6 sm:p-8 rounded-3xl shadow-xl flex flex-col md:flex-row justify-between items-center gap-6 relative overflow-hidden">
+      <div class="space-y-2 z-10">
+        <span class="bg-indigo-500/30 text-indigo-200 text-[10px] font-bold px-3.5 py-1 rounded-full uppercase tracking-wider">Industrial Automation Hub</span>
+        <h2 class="text-xl sm:text-2xl font-black">invert.inn — Advanced VFDs & Servo Systems</h2>
+        <p class="text-xs text-indigo-200 italic">"Empowering your industrial setup with unmatched efficiency and verified performance."</p>
+      </div>
+      <div class="hidden md:flex gap-2 flex-wrap z-10">
+        <button onclick="filterCategory('All')" class="px-4 py-2 bg-white text-indigo-900 rounded-xl text-xs font-bold shadow transition">All</button>
+        <button onclick="filterCategory('VFD Drives')" class="px-4 py-2 bg-indigo-800/80 text-white rounded-xl text-xs font-bold hover:bg-white hover:text-indigo-900 transition">VFD Drives</button>
+        <button onclick="filterCategory('Solar Inverters')" class="px-4 py-2 bg-indigo-800/80 text-white rounded-xl text-xs font-bold hover:bg-white hover:text-indigo-900 transition">Solar</button>
+        <button onclick="filterCategory('Servo Motors')" class="px-4 py-2 bg-indigo-800/80 text-white rounded-xl text-xs font-bold hover:bg-white hover:text-indigo-900 transition">Servo</button>
+      </div>
+    </div>
+  </section>
+
+  <main class="max-w-7xl w-full mx-auto px-6 py-8 flex-1">
+    <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="text-slate-400 text-xs py-12 col-span-full text-center">Loading inventory...</div>
+    </div>
+  </main>
+
+  <!-- PINTEREST STYLE LIGHTBOX MODAL FOR MULTIPLE IMAGES -->
+  <div id="productModal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-2 sm:p-6 hidden">
+    <div class="bg-white border border-slate-200 w-full max-w-2xl rounded-3xl p-6 shadow-2xl relative text-slate-800">
+      <div class="flex justify-between items-center pb-4 border-b mb-4">
+        <div>
+          <span id="modalCategory" class="text-[10px] font-bold px-3 py-1 rounded-full bg-indigo-50 text-indigo-600">Category</span>
+          <h3 id="modalTitle" class="font-black text-base text-slate-900 mt-1">Product Title</h3>
+        </div>
+        <button onclick="closeModal()" class="bg-slate-100 hover:bg-slate-200 text-slate-600 w-9 h-9 rounded-full flex items-center justify-center"><i class="fa-solid fa-xmark text-base"></i></button>
+      </div>
+      
+      <!-- Big Lightbox Image -->
+      <div class="bg-slate-50 rounded-2xl p-4 border flex items-center justify-center h-72 mb-4 relative overflow-hidden">
+        <img id="mainModalImg" src="" class="max-h-full max-w-full object-contain">
+      </div>
+
+      <!-- Thumbnails Gallery -->
+      <div>
+        <p class="text-[10px] font-bold text-slate-400 uppercase mb-2"><i class="fa-solid fa-images mr-1"></i> All Product Photos (Tap to Preview)</p>
+        <div id="modalThumbnails" class="flex gap-2 overflow-x-auto pb-2"></div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    const db = getFirestore(initializeApp({
+      apiKey: "AIzaSyBj7CKrC_Hax4t8MdusrhIEMql2c5zn53I",
+      authDomain: "servo-motor-3cf41.firebaseapp.com",
+      projectId: "servo-motor-3cf41",
+      storageBucket: "servo-motor-3cf41.firebasestorage.app",
+      messagingSenderId: "207233803842",
+      appId: "1:207233803842:web:4d7d728ac7e31cc230afdb"
+    }));
+
+    // ASLI WHATSAPP NUMBER (03242220222)
+    const WHATSAPP_NUMBER = "923242220222"; 
+
+    let allProducts = [];
+    const absoluteFallback = "https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=500";
+
+    async function loadProducts() {
+      try {
+        const snap = await getDocs(collection(db, "products"));
+        allProducts = [];
+        snap.forEach(d => { allProducts.push({ id: d.id, ...d.data() }); });
+        render(allProducts);
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    function render(data) {
+      const grid = document.getElementById('productGrid');
+      grid.innerHTML = '';
+      if(data.length === 0) {
+        grid.innerHTML = `<div class="bg-white border p-8 rounded-3xl text-center col-span-full text-slate-400 text-xs">Koi product mojood nahi hai.</div>`;
+        return;
+      }
+      data.forEach(p => {
+        let raw = p.images || p.image || '';
+        let links = raw.split(',').map(s => s.trim()).filter(s => s.startsWith('http'));
+        let mainImg = links.length > 0 ? links[0] : absoluteFallback;
+        
+        const waCardLink = `https://wa.me/${WHATSAPP_NUMBER}?text=Assalam-o-Alaikum, Mujhe yeh product khareedna hai:%0A*${encodeURIComponent(p.title)}*%0APrice: Rs. ${Number(p.price || 0).toLocaleString()}`;
+
+        let videoLink = (p.videoUrl && p.videoUrl.trim() !== '') ? p.videoUrl : "https://www.youtube.com";
+
+        grid.innerHTML += `
+          <div onclick="showModal('${p.id}')" class="bg-white border border-slate-200/80 rounded-3xl p-5 shadow-sm hover:shadow-xl transition flex flex-col justify-between cursor-pointer">
+            <div>
+              <div class="relative overflow-hidden rounded-2xl mb-4 bg-slate-50 border h-48 flex items-center justify-center">
+                <img src="${mainImg}" onerror="this.src='${absoluteFallback}'" class="w-full h-full object-contain">
+                <span class="absolute top-3 left-3 bg-white/90 text-indigo-900 text-[10px] font-black px-2.5 py-1 rounded-lg">${p.category || 'General'}</span>
+                ${links.length > 1 ? `<span class="absolute bottom-3 right-3 bg-slate-900/70 text-white text-[9px] font-bold px-2 py-0.5 rounded-md"><i class="fa-solid fa-images mr-1"></i>${links.length}</span>` : ''}
+              </div>
+              <div class="text-[10px] font-bold text-slate-400 uppercase">${p.brand || 'Brand'} ${p.power ? '| ' + p.power : ''}</div>
+              <h3 class="font-black text-sm text-slate-900 mt-1">${p.title}</h3>
+            </div>
+            <div class="mt-4">
+              <a href="${videoLink}" target="_blank" onclick="event.stopPropagation()" 
+                 class="mb-3 w-full bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 py-2.5 px-4 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 shadow-sm">
+                <i class="fa-solid fa-play text-indigo-600"></i> Watch Video
+              </a>
+              <div class="pt-3 border-t flex items-center justify-between" onclick="event.stopPropagation()">
+                <div>
+                  <span class="text-[10px] text-slate-400 block">Price</span>
+                  <span class="font-mono font-black text-indigo-600 text-sm">Rs. ${Number(p.price || 0).toLocaleString()}</span>
+                </div>
+                <a href="${waCardLink}" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow">
+                  <i class="fa-brands fa-whatsapp"></i> Order
+                </a>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    window.showModal = (id) => {
+      const p = allProducts.find(item => item.id === id);
+      if(!p) return;
+      let raw = p.images || p.image || '';
+      let links = raw.split(',').map(s => s.trim()).filter(s => s.startsWith('http'));
+      if(links.length === 0) links.push(absoluteFallback);
+
+      document.getElementById('modalCategory').innerText = p.category || 'General';
+      document.getElementById('modalTitle').innerText = p.title;
+      document.getElementById('mainModalImg').src = links[0];
+      
+      let thumbContainer = document.getElementById('modalThumbnails');
+      thumbContainer.innerHTML = '';
+      links.forEach((imgUrl, index) => {
+        thumbContainer.innerHTML += `
+          <img src="${imgUrl}" onerror="this.src='${absoluteFallback}'" 
+               onclick="document.getElementById('mainModalImg').src='${imgUrl}'" 
+               class="w-14 h-14 object-cover rounded-xl border-2 border-slate-200 hover:border-indigo-600 cursor-pointer flex-shrink-0 transition">`;
+      });
+
+      document.getElementById('productModal').classList.remove('hidden');
+    };
+
+    window.closeModal = () => document.getElementById('productModal').classList.add('hidden');
+    const sidebar = document.getElementById('mobileSidebar');
+    document.getElementById('menuBtn').addEventListener('click', () => sidebar.classList.remove('hidden'));
+    document.getElementById('closeBtn').addEventListener('click', () => sidebar.classList.add('hidden'));
+    window.closeSidebar = () => sidebar.classList.add('hidden');
+    window.filterCategory = (cat) => { render(cat === 'All' ? allProducts : allProducts.filter(p => p.category === cat)); };
+    window.filterProducts = () => {
+      const q = document.getElementById('searchInput').value.toLowerCase();
+      render(allProducts.filter(p => p.title.toLowerCase().includes(q) || (p.brand && p.brand.toLowerCase().includes(q))));
+    };
+
+    loadProducts();
+  </script>
+</body>
+</html>
