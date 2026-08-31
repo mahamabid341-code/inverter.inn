@@ -2,111 +2,135 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>invert.inn - VIP Admin Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>invert.inn - VIP Pro Dashboard</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    ::-webkit-scrollbar { width: 5px; height: 5px; }
-    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+    /* Custom Modern Scrollbar */
+    ::-webkit-scrollbar { width: 4px; height: 4px; }
+    ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 10px; }
+    /* Glass Effect */
+    .glass-header { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(226, 232, 240, 0.8); }
+    body { -webkit-tap-highlight-color: transparent; }
   </style>
 </head>
-<body class="bg-slate-50 font-sans text-slate-800 flex h-screen overflow-hidden selection:bg-indigo-100">
+<body class="bg-[#f8fafc] font-sans text-slate-800 flex h-screen overflow-hidden selection:bg-indigo-200">
 
-  <div id="toastContainer" class="fixed top-5 left-1/2 -translate-x-1/2 z-[60] space-y-2 w-[90%] max-w-sm"></div>
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toastContainer" class="fixed top-5 left-1/2 -translate-x-1/2 z-[70] space-y-2 w-[90%] max-w-sm"></div>
 
-  <!-- FLOATING ADD BUTTON -->
-  <button onclick="window.openForm()" class="md:hidden fixed bottom-6 right-6 w-14 h-14 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full shadow-[0_10px_25px_-5px_rgba(79,70,229,0.5)] flex items-center justify-center text-2xl z-40 transition-transform active:scale-95">
+  <!-- FLOATING ADD BUTTON FOR MOBILE -->
+  <button onclick="window.openForm()" class="md:hidden fixed bottom-6 right-6 w-14 h-14 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full shadow-[0_10px_25px_-5px_rgba(79,70,229,0.6)] flex items-center justify-center text-2xl z-40 transition-transform active:scale-90">
     <i class="fa-solid fa-plus"></i>
   </button>
 
-  <aside class="w-64 bg-slate-900 text-slate-300 hidden md:flex flex-col justify-between p-6 shadow-xl z-20 relative">
-    <div class="space-y-6">
+  <!-- SIDEBAR (DESKTOP) -->
+  <aside class="w-64 bg-slate-900 text-slate-300 hidden md:flex flex-col justify-between p-6 shadow-2xl z-20 relative">
+    <div class="space-y-8">
       <div class="flex items-center gap-3">
-        <div class="bg-indigo-600 text-white p-2.5 rounded-2xl font-black text-sm">i.i</div>
-        <h1 class="text-white font-black text-base tracking-tight">invert<span class="text-indigo-500">.inn</span></h1>
+        <div class="bg-gradient-to-br from-indigo-500 to-purple-600 text-white p-2.5 rounded-2xl font-black text-sm shadow-lg shadow-indigo-500/30">i.i</div>
+        <h1 class="text-white font-black text-xl tracking-tight">invert<span class="text-indigo-400">.inn</span></h1>
       </div>
-      <nav class="space-y-1.5 text-xs font-semibold">
-        <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-2xl bg-indigo-600 text-white shadow-lg shadow-indigo-600/30"><i class="fa-solid fa-chart-pie"></i> Dashboard</a>
-        <a href="index.html" target="_blank" class="flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-slate-800 transition text-slate-400 hover:text-white"><i class="fa-solid fa-store"></i> View Live Store</a>
+      <nav class="space-y-2 text-xs font-semibold">
+        <a href="#" class="flex items-center gap-3 px-4 py-3.5 rounded-2xl bg-indigo-600 text-white shadow-lg shadow-indigo-600/30 transition hover:scale-[1.02]"><i class="fa-solid fa-layer-group text-sm w-4"></i> Dashboard</a>
+        <a href="index.html" target="_blank" class="flex items-center gap-3 px-4 py-3.5 rounded-2xl hover:bg-slate-800 transition text-slate-400 hover:text-white"><i class="fa-solid fa-store text-sm w-4"></i> View Live Store</a>
       </nav>
     </div>
-    <div class="text-[10px] text-slate-500 font-medium">Admin Panel v11.0 VIP</div>
+    <div class="text-[10px] text-slate-500 font-bold uppercase tracking-wider">VIP Pro Edition v12.0</div>
   </aside>
 
-  <main class="flex-1 flex flex-col h-screen overflow-y-auto relative">
-    <header class="bg-white/80 backdrop-blur-md border-b px-4 sm:px-8 py-4 flex justify-between items-center shadow-sm sticky top-0 z-30">
-      <div class="flex items-center gap-2 sm:gap-3">
-        <h2 class="text-sm sm:text-base font-black text-slate-900">VIP Dashboard</h2>
+  <!-- MAIN AREA -->
+  <main class="flex-1 flex flex-col h-screen overflow-y-auto relative bg-slate-50">
+    
+    <!-- GLASS HEADER -->
+    <header class="glass-header px-4 sm:px-8 py-3.5 flex justify-between items-center sticky top-0 z-30">
+      <div class="flex items-center gap-2">
+        <div class="md:hidden bg-gradient-to-br from-indigo-500 to-purple-600 text-white w-7 h-7 rounded-lg flex items-center justify-center font-black text-[10px]">i.i</div>
+        <h2 class="text-sm sm:text-base font-black text-slate-900 tracking-tight">Dashboard</h2>
       </div>
       <div class="flex items-center gap-2 sm:gap-3">
-        <!-- NEW FORCE REFRESH BUTTON -->
-        <button onclick="window.forceRefresh()" class="bg-emerald-100 text-emerald-700 hover:bg-emerald-200 px-3 py-1.5 sm:py-2 rounded-xl text-[10px] sm:text-xs font-bold transition flex items-center gap-1.5 border border-emerald-200">
-          <i class="fa-solid fa-arrows-rotate"></i> <span class="hidden sm:inline">Refresh</span>
+        <!-- FORCE REFRESH -->
+        <button onclick="window.forceRefresh()" class="bg-emerald-50 text-emerald-600 hover:bg-emerald-100 px-3 py-2 rounded-xl text-[10px] sm:text-xs font-bold transition flex items-center gap-1.5 border border-emerald-100">
+          <i class="fa-solid fa-rotate-right"></i> <span class="hidden sm:inline">Sync App</span>
         </button>
-        
-        <button onclick="window.openForm()" class="hidden md:flex bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-xl text-xs font-bold shadow-md transition items-center gap-2">
+        <!-- DESKTOP ADD BTN -->
+        <button onclick="window.openForm()" class="hidden md:flex bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-xl text-xs font-bold shadow-lg shadow-indigo-200 transition items-center gap-2 hover:-translate-y-0.5">
           <i class="fa-solid fa-plus"></i> Add Product
         </button>
-        <a href="index.html" target="_blank" class="md:hidden text-[10px] font-bold bg-slate-100 text-slate-600 px-3 py-1.5 rounded-xl border hover:bg-slate-200 transition"><i class="fa-solid fa-store"></i> Store</a>
+        <a href="index.html" target="_blank" class="md:hidden text-[10px] font-bold bg-white text-slate-600 px-3 py-2 rounded-xl border border-slate-200 hover:bg-slate-50 shadow-sm transition"><i class="fa-solid fa-store"></i> Store</a>
       </div>
     </header>
 
-    <div class="p-4 sm:p-8 space-y-6 sm:space-y-8 max-w-7xl w-full mx-auto pb-24">
+    <div class="p-4 sm:p-8 space-y-6 sm:space-y-8 max-w-7xl w-full mx-auto pb-28">
       
-      <!-- STATS -->
-      <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-6">
-        <div class="bg-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-slate-200 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+      <!-- TOP STAT CARDS -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-5">
+        <div class="bg-white p-4 sm:p-5 rounded-2xl sm:rounded-3xl border border-slate-100 shadow-sm hover:shadow-md transition flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
           <div>
-            <p class="text-[9px] sm:text-[10px] font-extrabold text-slate-400 uppercase tracking-wider">Total Products</p>
-            <h3 id="totalCount" class="text-xl sm:text-2xl font-black text-slate-900 mt-1">0</h3>
+            <p class="text-[9px] sm:text-[10px] font-extrabold text-slate-400 uppercase tracking-wider">Total Inventory</p>
+            <h3 id="totalCount" class="text-xl sm:text-2xl font-black text-slate-800 mt-0.5">0</h3>
           </div>
-          <div class="bg-indigo-50 text-indigo-600 p-2.5 sm:p-4 rounded-xl"><i class="fa-solid fa-box text-sm sm:text-lg"></i></div>
+          <div class="bg-indigo-50 text-indigo-600 w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl flex items-center justify-center text-sm sm:text-base"><i class="fa-solid fa-box-open"></i></div>
         </div>
-        <div class="bg-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-slate-200 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+        <div class="bg-white p-4 sm:p-5 rounded-2xl sm:rounded-3xl border border-slate-100 shadow-sm hover:shadow-md transition flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
           <div>
-            <p class="text-[9px] sm:text-[10px] font-extrabold text-slate-400 uppercase tracking-wider">Categories</p>
-            <h3 class="text-xl sm:text-2xl font-black text-slate-900 mt-1">3</h3>
+            <p class="text-[9px] sm:text-[10px] font-extrabold text-slate-400 uppercase tracking-wider">Active Categories</p>
+            <h3 class="text-xl sm:text-2xl font-black text-slate-800 mt-0.5">3</h3>
           </div>
-          <div class="bg-emerald-50 text-emerald-600 p-2.5 sm:p-4 rounded-xl"><i class="fa-solid fa-tags text-sm sm:text-lg"></i></div>
+          <div class="bg-purple-50 text-purple-600 w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl flex items-center justify-center text-sm sm:text-base"><i class="fa-solid fa-tags"></i></div>
         </div>
-        <div class="bg-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-slate-200 shadow-sm col-span-2 sm:col-span-1 flex flex-row items-center justify-between">
+        <div class="bg-white p-4 sm:p-5 rounded-2xl sm:rounded-3xl border border-slate-100 shadow-sm hover:shadow-md transition col-span-2 sm:col-span-1 flex flex-row items-center justify-between">
           <div>
-            <p class="text-[9px] sm:text-[10px] font-extrabold text-slate-400 uppercase tracking-wider">System Status</p>
-            <h3 class="text-sm sm:text-lg font-black text-emerald-600 mt-1">Live Database</h3>
+            <p class="text-[9px] sm:text-[10px] font-extrabold text-slate-400 uppercase tracking-wider">Database Status</p>
+            <div class="flex items-center gap-1.5 mt-0.5"><div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div><h3 class="text-sm sm:text-lg font-black text-emerald-600">Live Firebase</h3></div>
           </div>
-          <div class="bg-amber-50 text-amber-600 p-2.5 sm:p-4 rounded-xl"><i class="fa-solid fa-bolt text-sm sm:text-lg"></i></div>
+          <div class="bg-emerald-50 text-emerald-600 w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl flex items-center justify-center text-sm sm:text-base"><i class="fa-solid fa-bolt"></i></div>
         </div>
       </div>
 
-      <!-- INVENTORY -->
-      <div class="bg-white rounded-2xl sm:rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
-        <div class="p-4 sm:p-6 border-b bg-white space-y-4">
-          <div class="flex justify-between items-center">
-            <h3 class="font-black text-sm sm:text-base text-slate-900">Database History</h3>
-            <button id="bulkDeleteBtn" onclick="window.deleteSelected()" class="hidden bg-rose-600 hover:bg-rose-700 text-white px-3 sm:px-4 py-2 rounded-xl text-[10px] sm:text-xs font-bold shadow-md transition">
-              <i class="fa-solid fa-trash-can mr-1.5"></i> Delete (<span id="selectedCount">0</span>)
+      <!-- MAIN INVENTORY APP-VIEW -->
+      <div class="bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden">
+        
+        <!-- SEARCH & CHIPS AREA -->
+        <div class="p-4 sm:p-6 border-b border-slate-100 bg-white space-y-4">
+          
+          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <h3 class="font-black text-base sm:text-lg text-slate-900">Product List</h3>
+            
+            <!-- NEW SMART SEARCH BAR -->
+            <div class="relative w-full sm:w-64">
+              <i class="fa-solid fa-search absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+              <input type="text" id="searchInput" placeholder="Search models, brands..." class="w-full bg-slate-50 border border-slate-200 text-xs rounded-xl pl-9 pr-4 py-2.5 outline-none focus:bg-white focus:border-indigo-300 focus:ring-2 focus:ring-indigo-100 transition">
+            </div>
+            
+            <button id="bulkDeleteBtn" onclick="window.deleteSelected()" class="hidden w-full sm:w-auto bg-rose-50 text-rose-600 hover:bg-rose-100 px-4 py-2.5 rounded-xl text-xs font-bold transition">
+              <i class="fa-solid fa-trash-can mr-1.5"></i> Delete Selected (<span id="selectedCount">0</span>)
             </button>
           </div>
-          <div class="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
-            <button onclick="window.filterTable('All')" class="chip-btn px-4 py-1.5 rounded-full text-xs font-bold bg-indigo-600 text-white transition shrink-0 shadow-sm">All Products</button>
-            <button onclick="window.filterTable('VFD Drives')" class="chip-btn px-4 py-1.5 rounded-full text-xs font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 transition shrink-0">VFD Drives</button>
-            <button onclick="window.filterTable('Solar Inverters')" class="chip-btn px-4 py-1.5 rounded-full text-xs font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 transition shrink-0">Solar Inverters</button>
-            <button onclick="window.filterTable('Servo Motors')" class="chip-btn px-4 py-1.5 rounded-full text-xs font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 transition shrink-0">Servo Motors</button>
+          
+          <!-- HORIZONTAL SCROLL CHIPS -->
+          <div class="flex gap-2 overflow-x-auto pb-2 scrollbar-hide pt-1" id="chipsContainer">
+            <button onclick="window.filterTable('All')" class="chip-btn px-4 py-1.5 rounded-full text-[11px] font-bold bg-slate-800 text-white transition shrink-0 shadow-sm">All Products</button>
+            <button onclick="window.filterTable('VFD Drives')" class="chip-btn px-4 py-1.5 rounded-full text-[11px] font-bold bg-slate-100 text-slate-500 hover:bg-slate-200 transition shrink-0">VFD Drives</button>
+            <button onclick="window.filterTable('Solar Inverters')" class="chip-btn px-4 py-1.5 rounded-full text-[11px] font-bold bg-slate-100 text-slate-500 hover:bg-slate-200 transition shrink-0">Solar Inverters</button>
+            <button onclick="window.filterTable('Servo Motors')" class="chip-btn px-4 py-1.5 rounded-full text-[11px] font-bold bg-slate-100 text-slate-500 hover:bg-slate-200 transition shrink-0">Servo Motors</button>
           </div>
         </div>
+
+        <!-- TABLE LIST -->
         <div class="overflow-x-auto">
           <table class="w-full text-left whitespace-nowrap">
-            <thead class="bg-slate-50 text-[10px] uppercase text-slate-400 font-bold border-b">
+            <thead class="bg-slate-50/50 text-[10px] uppercase text-slate-400 font-extrabold border-b border-slate-100">
               <tr>
-                <th class="p-3 sm:p-4 w-10"><input type="checkbox" id="selectAll" onclick="window.toggleSelectAll(this)" class="rounded accent-indigo-600 cursor-pointer w-4 h-4"></th>
-                <th class="p-3 sm:p-4">Product Info (Tap to Edit)</th>
-                <th class="p-3 sm:p-4">Category</th>
-                <th class="p-3 sm:p-4">Price</th>
+                <th class="p-3 sm:p-5 w-10"><input type="checkbox" id="selectAll" onclick="window.toggleSelectAll(this)" class="rounded accent-indigo-600 cursor-pointer w-4 h-4"></th>
+                <th class="p-3 sm:p-5">Product Details <span class="normal-case font-medium text-slate-400 ml-1">(Tap row to edit)</span></th>
+                <th class="p-3 sm:p-5 hidden sm:table-cell">Category</th>
+                <th class="p-3 sm:p-5">Price</th>
               </tr>
             </thead>
-            <tbody id="adminTable">
-              <tr><td colspan="4" class="p-8 text-xs text-slate-400 text-center"><i class="fa-solid fa-spinner fa-spin mr-2"></i> Loading inventory...</td></tr>
+            <tbody id="adminTable" class="divide-y divide-slate-50">
+              <tr><td colspan="4" class="p-12 text-xs text-slate-400 text-center"><i class="fa-solid fa-spinner fa-spin mr-2 text-indigo-500"></i> Loading your amazing products...</td></tr>
             </tbody>
           </table>
         </div>
@@ -114,29 +138,39 @@
     </div>
   </main>
 
-  <!-- FORM MODAL -->
-  <div id="formModal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4 hidden transition-opacity opacity-0 duration-300">
-    <div class="bg-white w-full max-w-2xl rounded-3xl shadow-2xl relative flex flex-col max-h-[90vh] overflow-hidden transform scale-95 transition-transform duration-300" id="formModalContent">
-      <div class="px-6 py-4 border-b flex justify-between items-center bg-slate-50">
-        <h3 id="formTitle" class="font-black text-sm sm:text-base text-slate-900">Add New Product</h3>
-        <button onclick="window.closeForm()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 w-8 h-8 rounded-full flex items-center justify-center transition"><i class="fa-solid fa-xmark"></i></button>
+  <!-- VIP PRO MODAL FORM -->
+  <div id="formModal" class="fixed inset-0 z-[60] flex items-center justify-center bg-slate-900/40 backdrop-blur-md p-4 hidden transition-opacity opacity-0 duration-300">
+    <div class="bg-white w-full max-w-2xl rounded-[2rem] shadow-2xl relative flex flex-col max-h-[95vh] overflow-hidden transform scale-95 transition-transform duration-300" id="formModalContent">
+      
+      <!-- Modal Header -->
+      <div class="px-6 sm:px-8 py-5 border-b border-slate-100 flex justify-between items-center bg-white">
+        <h3 id="formTitle" class="font-black text-base sm:text-lg text-slate-900 tracking-tight">Add New Product</h3>
+        <button onclick="window.closeForm()" class="bg-slate-100 hover:bg-slate-200 text-slate-600 w-9 h-9 rounded-full flex items-center justify-center transition active:scale-90"><i class="fa-solid fa-xmark"></i></button>
       </div>
-      <div class="p-6 overflow-y-auto flex-1 space-y-4 bg-white">
+
+      <!-- Modal Body -->
+      <div class="p-6 sm:px-8 sm:py-6 overflow-y-auto flex-1 space-y-5 bg-slate-50/30">
         <input type="hidden" id="editId">
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div><label class="block text-[10px] font-bold text-slate-400 mb-1.5 uppercase">Model Name</label><input id="pTitle" class="border p-3 rounded-xl text-xs bg-slate-50 w-full outline-none focus:ring-2 focus:ring-indigo-600/20 focus:bg-white transition"></div>
-          <div><label class="block text-[10px] font-bold text-slate-400 mb-1.5 uppercase">Brand Name</label><input id="pBrand" class="border p-3 rounded-xl text-xs bg-slate-50 w-full outline-none focus:ring-2 focus:ring-indigo-600/20 focus:bg-white transition"></div>
-          <div><label class="block text-[10px] font-bold text-slate-400 mb-1.5 uppercase">Category</label><select id="pCategory" class="border p-3 rounded-xl text-xs bg-slate-50 w-full outline-none"><option value="">Select Category</option><option value="VFD Drives">VFD Drives</option><option value="Solar Inverters">Solar Inverters</option><option value="Servo Motors">Servo Motors</option></select></div>
-          <div><label class="block text-[10px] font-bold text-slate-400 mb-1.5 uppercase">Price (PKR)</label><input id="pPrice" type="number" class="border p-3 rounded-xl text-xs bg-slate-50 w-full outline-none focus:ring-2 focus:ring-indigo-600/20"></div>
-          <div><label class="block text-[10px] font-bold text-slate-400 mb-1.5 uppercase">Power</label><input id="pPower" class="border p-3 rounded-xl text-xs bg-slate-50 w-full outline-none"></div>
-          <div><label class="block text-[10px] font-bold text-slate-400 mb-1.5 uppercase">Video Link</label><input id="pVideo" class="border p-3 rounded-xl text-xs bg-slate-50 w-full outline-none"></div>
-          <div class="sm:col-span-2"><label class="block text-[10px] font-bold text-slate-400 mb-1.5 uppercase">Images (Comma separated)</label><textarea id="pImage" rows="2" class="border p-3 rounded-xl text-xs bg-slate-50 w-full outline-none resize-none"></textarea></div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div><label class="block text-[10px] font-extrabold text-slate-500 mb-2 uppercase tracking-wide">Model Name *</label><input id="pTitle" class="border border-slate-200 p-3.5 rounded-2xl text-xs bg-white w-full outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition shadow-sm" placeholder="e.g. Yaskawa GA800"></div>
+          <div><label class="block text-[10px] font-extrabold text-slate-500 mb-2 uppercase tracking-wide">Brand Name</label><input id="pBrand" class="border border-slate-200 p-3.5 rounded-2xl text-xs bg-white w-full outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition shadow-sm" placeholder="e.g. Yaskawa"></div>
+          <div><label class="block text-[10px] font-extrabold text-slate-500 mb-2 uppercase tracking-wide">Category</label><select id="pCategory" class="border border-slate-200 p-3.5 rounded-2xl text-xs bg-white w-full outline-none focus:border-indigo-500 shadow-sm text-slate-700"><option value="VFD Drives">VFD Drives</option><option value="Solar Inverters">Solar Inverters</option><option value="Servo Motors">Servo Motors</option><option value="Other">Other Accessories</option></select></div>
+          <div><label class="block text-[10px] font-extrabold text-slate-500 mb-2 uppercase tracking-wide">Price (PKR) *</label><input id="pPrice" type="number" class="border border-slate-200 p-3.5 rounded-2xl text-xs bg-white w-full outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition shadow-sm" placeholder="e.g. 25000"></div>
+          <div><label class="block text-[10px] font-extrabold text-slate-500 mb-2 uppercase tracking-wide">Power Rating</label><input id="pPower" class="border border-slate-200 p-3.5 rounded-2xl text-xs bg-white w-full outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition shadow-sm" placeholder="e.g. 3 HP / 2.2 kW"></div>
+          <div><label class="block text-[10px] font-extrabold text-slate-500 mb-2 uppercase tracking-wide">Video Link (YouTube/TikTok)</label><input id="pVideo" class="border border-slate-200 p-3.5 rounded-2xl text-xs bg-white w-full outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition shadow-sm" placeholder="https://..."></div>
+          <div class="sm:col-span-2"><label class="block text-[10px] font-extrabold text-slate-500 mb-2 uppercase tracking-wide">Image Links (Comma separated)</label><textarea id="pImage" rows="2" class="border border-slate-200 p-3.5 rounded-2xl text-xs bg-white w-full outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition shadow-sm resize-none" placeholder="Paste direct image links here..."></textarea></div>
         </div>
       </div>
-      <div class="px-6 py-4 border-t bg-slate-50 flex gap-3">
-        <button id="saveBtn" class="flex-1 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold shadow-lg shadow-indigo-600/30 transition">Save Product</button>
-        <button id="delBtn" onclick="window.removeCurrentVDF()" class="hidden px-6 py-3 bg-rose-100 text-rose-600 rounded-xl text-xs font-bold hover:bg-rose-200 transition"><i class="fa-solid fa-trash"></i></button>
+
+      <!-- Modal Footer -->
+      <div class="px-6 sm:px-8 py-5 border-t border-slate-100 bg-white flex flex-col-reverse sm:flex-row gap-3">
+        <button id="delBtn" onclick="window.removeCurrentVDF()" class="hidden w-full sm:w-auto px-6 py-3.5 bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-2xl text-xs font-bold transition"><i class="fa-solid fa-trash-can sm:mr-1"></i> <span class="sm:hidden">Delete</span></button>
+        <div class="flex-1 flex gap-3">
+          <button onclick="window.closeForm()" class="flex-1 sm:flex-none px-6 py-3.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-2xl text-xs font-bold transition">Cancel</button>
+          <button id="saveBtn" class="flex-1 py-3.5 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white rounded-2xl text-xs font-bold shadow-lg shadow-indigo-500/30 transition transform active:scale-[0.98]">Save Product</button>
+        </div>
       </div>
+
     </div>
   </div>
 
@@ -155,62 +189,47 @@
 
     const fallbackImg = "https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=500";
     let allProductsData = [];
+    let currentFilter = 'All';
 
-    // CUSTOM REFRESH TO BREAK CACHE
+    // --- REFRESH ---
     window.forceRefresh = () => {
-      showToast("Updating Code...", "success");
-      setTimeout(() => {
-        window.location.href = window.location.pathname + '?v=' + new Date().getTime();
-      }, 800);
+      showToast("Syncing Database...", "success");
+      setTimeout(() => { window.location.href = window.location.pathname + '?v=' + new Date().getTime(); }, 600);
     };
 
+    // --- VIP TOAST ---
     function showToast(message, type = 'success') {
       const container = document.getElementById('toastContainer');
       const toast = document.createElement('div');
-      toast.className = `flex items-center gap-3 px-4 py-3.5 rounded-2xl shadow-2xl text-xs font-bold text-white transition-all duration-300 transform translate-y-[-20px] opacity-0 ${type === 'success' ? 'bg-slate-800' : 'bg-rose-600'}`;
+      toast.className = `flex items-center gap-3 px-5 py-4 rounded-2xl shadow-2xl text-xs font-bold text-white transition-all duration-300 transform translate-y-[-20px] opacity-0 border ${type === 'success' ? 'bg-slate-800 border-slate-700' : 'bg-rose-600 border-rose-500'}`;
       toast.innerHTML = `<div class="${type === 'success' ? 'text-emerald-400' : 'text-white'}"><i class="fa-solid ${type === 'success' ? 'fa-circle-check' : 'fa-circle-exclamation'} text-lg"></i></div> <div>${message}</div>`;
       container.appendChild(toast);
       setTimeout(() => toast.classList.remove('translate-y-[-20px]', 'opacity-0'), 10);
-      setTimeout(() => {
-        toast.classList.add('translate-y-[-20px]', 'opacity-0');
-        setTimeout(() => toast.remove(), 300);
-      }, 3000);
+      setTimeout(() => { toast.classList.add('translate-y-[-20px]', 'opacity-0'); setTimeout(() => toast.remove(), 300); }, 3000);
     }
 
+    // --- MODAL CONTROLS ---
     const modal = document.getElementById('formModal');
     const modalContent = document.getElementById('formModalContent');
 
     window.openForm = () => {
       modal.classList.remove('hidden');
-      setTimeout(() => {
-        modal.classList.remove('opacity-0');
-        modalContent.classList.remove('scale-95');
-      }, 10);
+      setTimeout(() => { modal.classList.remove('opacity-0'); modalContent.classList.remove('scale-95'); }, 10);
     };
-
     window.closeForm = () => {
-      modal.classList.add('opacity-0');
-      modalContent.classList.add('scale-95');
-      setTimeout(() => {
-        modal.classList.add('hidden');
-        resetForm();
-      }, 300);
+      modal.classList.add('opacity-0'); modalContent.classList.add('scale-95');
+      setTimeout(() => { modal.classList.add('hidden'); resetForm(); }, 300);
     };
 
     function resetForm() {
-      document.getElementById('editId').value = '';
-      document.getElementById('pTitle').value = '';
-      document.getElementById('pBrand').value = '';
-      document.getElementById('pCategory').value = '';
-      document.getElementById('pPrice').value = '';
-      document.getElementById('pPower').value = '';
-      document.getElementById('pVideo').value = '';
-      document.getElementById('pImage').value = '';
-      document.getElementById('saveBtn').innerText = "Save Product";
+      ['editId','pTitle','pBrand','pPrice','pPower','pVideo','pImage'].forEach(id => document.getElementById(id).value = '');
+      document.getElementById('pCategory').value = 'VFD Drives';
+      document.getElementById('saveBtn').innerHTML = "Save Product";
       document.getElementById('formTitle').innerText = "Add New Product";
       document.getElementById('delBtn').classList.add('hidden');
     }
 
+    // --- DB SAVE ---
     async function saveVDF() {
       const id = document.getElementById('editId').value;
       const data = {
@@ -224,98 +243,127 @@
         image: document.getElementById('pImage').value.trim() ? document.getElementById('pImage').value.trim().split(',')[0].trim() : fallbackImg,
       };
 
-      if(!data.title || !data.price) return showToast("Name & Price required!", "error"); 
+      if(!data.title || !data.price) return showToast("Model Name & Price required!", "error"); 
+      
+      const btn = document.getElementById('saveBtn');
+      btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-1"></i> Saving...`;
       
       try {
-        if(id) { 
-          await updateDoc(doc(db, "products", id), data); 
-          showToast("Updated Successfully!");
-        } else { 
-          await addDoc(collection(db, "products"), data); 
-          showToast("Added Successfully!");
-        }
+        if(id) { await updateDoc(doc(db, "products", id), data); showToast("Product Updated!"); } 
+        else { await addDoc(collection(db, "products"), data); showToast("Product Added!"); }
         window.closeForm();
         loadDashboard();
-      } catch (err) { showToast("Error: " + err.message, "error"); }
+      } catch (err) { showToast("Error: " + err.message, "error"); btn.innerHTML = "Save Product"; }
     }
 
+    // --- LOAD DB ---
     async function loadDashboard() {
       const snap = await getDocs(collection(db, "products"));
       allProductsData = [];
       document.getElementById('totalCount').innerText = snap.size;
       snap.forEach(d => allProductsData.push({ id: d.id, ...d.data() }));
-      renderAdminTable(allProductsData);
+      applyFilters(); // Renders table with current search/chips
     }
 
+    // --- RENDER TABLE ---
     function renderAdminTable(data) {
       const table = document.getElementById('adminTable');
       table.innerHTML = '';
-      if(data.length === 0) return table.innerHTML = `<tr><td colspan="4" class="p-8 text-xs text-slate-400 text-center">No products found.</td></tr>`; 
+      if(data.length === 0) return table.innerHTML = `<tr><td colspan="4" class="p-12 text-xs text-slate-400 text-center flex flex-col items-center"><i class="fa-solid fa-box-open text-3xl mb-3 text-slate-200"></i>No products found.</td></tr>`; 
       
       data.forEach(p => {
         let firstImg = (p.image && p.image.startsWith('http')) ? p.image : ((p.images && p.images.split(',')[0].trim().startsWith('http')) ? p.images.split(',')[0].trim() : fallbackImg);
         
         table.innerHTML += `
-          <tr class="border-t text-xs hover:bg-slate-50 transition group">
-            <td class="p-3 sm:p-4"><input type="checkbox" value="${p.id}" onchange="window.updateBulkButton()" class="row-checkbox rounded accent-indigo-600 cursor-pointer w-4 h-4"></td>
-            <td class="p-3 sm:p-4 flex items-center gap-3 cursor-pointer relative" onclick="window.editMode('${p.id}')">
-              <img src="${firstImg}" onerror="this.src='${fallbackImg}'" class="w-12 h-12 object-cover rounded-xl border shadow-sm">
+          <tr class="group hover:bg-slate-50 transition cursor-pointer" onclick="if(!event.target.closest('input[type=checkbox]')) window.editMode('${p.id}')">
+            <td class="p-3 sm:p-5 border-b border-slate-50"><input type="checkbox" value="${p.id}" onchange="window.updateBulkButton()" class="row-checkbox rounded accent-indigo-600 cursor-pointer w-4 h-4 shadow-sm"></td>
+            <td class="p-3 sm:p-5 border-b border-slate-50 flex items-center gap-3 sm:gap-4">
+              <div class="relative">
+                <img src="${firstImg}" onerror="this.src='${fallbackImg}'" class="w-12 h-12 sm:w-14 sm:h-14 object-cover rounded-2xl border border-slate-100 shadow-sm bg-white">
+                <div class="absolute inset-0 bg-indigo-900/10 rounded-2xl opacity-0 group-hover:opacity-100 transition"></div>
+              </div>
               <div>
-                <div class="font-black text-slate-900 text-sm">${p.title || 'Untitled'}</div>
-                <div class="text-[10px] text-slate-500 font-bold uppercase mt-0.5">${p.brand || 'No Brand'} ${p.power ? '• '+p.power : ''}</div>
-                <div class="text-[10px] text-indigo-500 font-bold mt-1 bg-indigo-50 inline-block px-2 py-0.5 rounded-full"><i class="fa-solid fa-pen mr-1"></i>Tap to edit</div>
+                <div class="font-black text-slate-900 text-[13px] sm:text-sm group-hover:text-indigo-600 transition leading-tight">${p.title || 'Untitled'}</div>
+                <div class="text-[9px] sm:text-[10px] text-slate-500 font-extrabold uppercase mt-1 tracking-wider">${p.brand || 'No Brand'} ${p.power ? '• '+p.power : ''}</div>
+                <div class="md:hidden mt-1.5"><span class="bg-indigo-50 text-indigo-600 px-2 py-0.5 rounded-md text-[9px] font-bold"><i class="fa-solid fa-pen text-[8px] mr-1"></i>Edit</span></div>
               </div>
             </td>
-            <td class="p-3 sm:p-4"><span class="bg-slate-100 text-slate-600 px-2.5 py-1 rounded-md text-[10px] font-bold">${p.category || 'General'}</span></td>
-            <td class="p-3 sm:p-4 font-mono font-black text-indigo-600">Rs. ${Number(p.price || 0).toLocaleString()}</td>
+            <td class="p-3 sm:p-5 border-b border-slate-50 hidden sm:table-cell"><span class="bg-slate-100 text-slate-600 px-3 py-1.5 rounded-lg text-[10px] font-bold">${p.category || 'General'}</span></td>
+            <td class="p-3 sm:p-5 border-b border-slate-50 font-mono font-black text-indigo-600 text-sm sm:text-base">Rs. ${Number(p.price || 0).toLocaleString()}</td>
           </tr>`;
       });
     }
 
+    // --- SEARCH & FILTER LOGIC ---
+    function applyFilters() {
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+      let filtered = allProductsData;
+      
+      // Apply Chip Category
+      if(currentFilter !== 'All') {
+        filtered = filtered.filter(p => p.category === currentFilter || (currentFilter === 'Servo Motors' && p.category && p.category.includes('Servo')));
+      }
+      
+      // Apply Search Text
+      if(searchTerm) {
+        filtered = filtered.filter(p => 
+          (p.title && p.title.toLowerCase().includes(searchTerm)) || 
+          (p.brand && p.brand.toLowerCase().includes(searchTerm))
+        );
+      }
+      renderAdminTable(filtered);
+    }
+
+    document.getElementById('searchInput').addEventListener('input', applyFilters);
+
     window.filterTable = (cat) => {
+      currentFilter = cat;
       document.querySelectorAll('.chip-btn').forEach(btn => {
-        if(btn.innerText.includes(cat) || (cat === 'All' && btn.innerText === 'All Products')) btn.className = "chip-btn px-4 py-1.5 rounded-full text-xs font-bold bg-indigo-600 text-white transition shrink-0 shadow-sm";
-        else btn.className = "chip-btn px-4 py-1.5 rounded-full text-xs font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 transition shrink-0";
+        if(btn.innerText.includes(cat) || (cat === 'All' && btn.innerText === 'All Products')) btn.className = "chip-btn px-4 py-1.5 rounded-full text-[11px] font-bold bg-slate-800 text-white transition shrink-0 shadow-sm";
+        else btn.className = "chip-btn px-4 py-1.5 rounded-full text-[11px] font-bold bg-slate-100 text-slate-500 hover:bg-slate-200 transition shrink-0";
       });
-      if(cat === 'All') renderAdminTable(allProductsData);
-      else renderAdminTable(allProductsData.filter(p => p.category === cat || (cat === 'Servo Motors' && p.category && p.category.includes('Servo'))));
+      applyFilters();
     };
 
+    // --- BULK OPS ---
     window.toggleSelectAll = (master) => {
       document.querySelectorAll('.row-checkbox').forEach(cb => cb.checked = master.checked);
       window.updateBulkButton();
     };
 
     window.updateBulkButton = () => {
-      const checkedCount = document.querySelectorAll('.row-checkbox:checked').length;
-      const bulkBtn = document.getElementById('bulkDeleteBtn');
-      document.getElementById('selectedCount').innerText = checkedCount;
-      if(checkedCount > 0) bulkBtn.classList.remove('hidden');
-      else bulkBtn.classList.add('hidden');
+      const count = document.querySelectorAll('.row-checkbox:checked').length;
+      const btn = document.getElementById('bulkDeleteBtn');
+      document.getElementById('selectedCount').innerText = count;
+      if(count > 0) btn.classList.remove('hidden'); else btn.classList.add('hidden');
     };
 
     window.deleteSelected = async () => {
       const selected = document.querySelectorAll('.row-checkbox:checked');
       if(selected.length === 0) return;
-      if(confirm(`Delete ${selected.length} products?`)) {
+      if(confirm(`Waqaie in ${selected.length} products ko HAMESHA ke liye delete karna hai?`)) {
         for(let cb of selected) await deleteDoc(doc(db, "products", cb.value));
-        showToast("Deleted!"); loadDashboard();
+        showToast(`${selected.length} Products Deleted!`); 
+        document.getElementById('selectAll').checked = false;
+        document.getElementById('bulkDeleteBtn').classList.add('hidden');
+        loadDashboard();
       }
     };
 
+    // --- INDIVIDUAL OPS ---
     window.editMode = (id) => {
       const p = allProductsData.find(item => item.id === id);
       if(p) {
         document.getElementById('editId').value = id;
         document.getElementById('pTitle').value = p.title || '';
         document.getElementById('pBrand').value = p.brand || '';
-        document.getElementById('pCategory').value = p.category || '';
+        document.getElementById('pCategory').value = p.category || 'VFD Drives';
         document.getElementById('pPrice').value = p.price || '';
         document.getElementById('pPower').value = p.power || '';
         document.getElementById('pVideo').value = p.videoUrl || '';
         document.getElementById('pImage').value = p.images || p.image || '';
-        document.getElementById('saveBtn').innerText = "Update Product";
-        document.getElementById('formTitle').innerText = "Edit Product";
+        document.getElementById('saveBtn').innerHTML = "Update Product";
+        document.getElementById('formTitle').innerText = "Edit Product Details";
         document.getElementById('delBtn').classList.remove('hidden');
         window.openForm();
       }
@@ -323,15 +371,17 @@
 
     window.removeCurrentVDF = async () => {
       const id = document.getElementById('editId').value;
-      if(id && confirm("Delete this product?")) {
+      if(id && confirm("Kya waqai is product ko hamesha ke liye delete karna hai?")) {
         await deleteDoc(doc(db, "products", id));
-        showToast("Deleted!");
+        showToast("Product Deleted Successfully!");
         window.closeForm();
         loadDashboard();
       }
     };
 
     document.getElementById('saveBtn').addEventListener('click', saveVDF);
+    
+    // Init
     loadDashboard();
   </script>
 </body>
