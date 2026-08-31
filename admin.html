@@ -33,7 +33,7 @@
         <a href="index.html" target="_blank" class="flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-slate-800 transition text-slate-400 hover:text-white"><i class="fa-solid fa-store"></i> View Live Store</a>
       </nav>
     </div>
-    <div class="text-[10px] text-slate-500 font-medium">Admin Panel v9.0 VIP</div>
+    <div class="text-[10px] text-slate-500 font-medium">Admin Panel v10.0 VIP</div>
   </aside>
 
   <main class="flex-1 flex flex-col h-screen overflow-y-auto relative">
@@ -316,18 +316,22 @@
         table.innerHTML += `
           <tr class="border-t text-xs hover:bg-slate-50 transition group">
             <td class="p-3 sm:p-4"><input type="checkbox" value="${p.id}" onchange="window.updateBulkButton()" class="row-checkbox rounded accent-indigo-600 cursor-pointer w-4 h-4"></td>
-            <td class="p-3 sm:p-4 flex items-center gap-3">
+            
+            <!-- NOW ENTIRE PRODUCT INFO AREA IS CLICKABLE TO EDIT -->
+            <td class="p-3 sm:p-4 flex items-center gap-3 cursor-pointer" onclick="window.editMode('${p.id}')">
               <img src="${firstImg}" onerror="this.src='${fallbackImg}'" class="w-12 h-12 object-cover rounded-xl border shadow-sm">
               <div>
-                <div class="font-black text-slate-900 text-sm">${p.title || 'Untitled'}</div>
+                <div class="font-black text-slate-900 text-sm group-hover:text-indigo-600 transition">${p.title || 'Untitled'}</div>
                 <div class="text-[10px] text-slate-500 font-bold uppercase mt-0.5">${p.brand || 'No Brand'} ${p.power ? '• '+p.power : ''}</div>
+                <div class="text-[10px] text-indigo-500 font-bold mt-1 md:hidden"><i class="fa-solid fa-pen mr-1"></i>Tap to edit</div>
               </div>
             </td>
+
             <td class="p-3 sm:p-4"><span class="bg-slate-100 text-slate-600 px-2.5 py-1 rounded-md text-[10px] font-bold">${p.category || 'General'}</span></td>
             <td class="p-3 sm:p-4 font-mono font-black text-indigo-600">Rs. ${Number(p.price || 0).toLocaleString()}</td>
             <td class="p-3 sm:p-4">
               <div class="flex gap-2">
-                <button onclick="window.editMode('${p.id}')" class="bg-indigo-50 hover:bg-indigo-100 text-indigo-600 w-8 h-8 rounded-lg flex items-center justify-center transition"><i class="fa-solid fa-pen"></i></button>
+                <button onclick="window.editMode('${p.id}')" class="hidden md:flex bg-indigo-50 hover:bg-indigo-100 text-indigo-600 w-8 h-8 rounded-lg items-center justify-center transition"><i class="fa-solid fa-pen"></i></button>
                 <button onclick="window.removeVDF('${p.id}')" class="bg-rose-50 hover:bg-rose-100 text-rose-600 w-8 h-8 rounded-lg flex items-center justify-center transition"><i class="fa-solid fa-trash"></i></button>
               </div>
             </td>
