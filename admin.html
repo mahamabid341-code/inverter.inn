@@ -7,17 +7,15 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    /* Custom Scrollbar for better App look */
     ::-webkit-scrollbar { width: 5px; height: 5px; }
     ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
   </style>
 </head>
 <body class="bg-slate-50 font-sans text-slate-800 flex h-screen overflow-hidden selection:bg-indigo-100">
 
-  <!-- TOAST NOTIFICATION CONTAINER -->
   <div id="toastContainer" class="fixed top-5 left-1/2 -translate-x-1/2 z-[60] space-y-2 w-[90%] max-w-sm"></div>
 
-  <!-- FLOATING ADD BUTTON FOR MOBILE -->
+  <!-- FLOATING ADD BUTTON -->
   <button onclick="window.openForm()" class="md:hidden fixed bottom-6 right-6 w-14 h-14 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full shadow-[0_10px_25px_-5px_rgba(79,70,229,0.5)] flex items-center justify-center text-2xl z-40 transition-transform active:scale-95">
     <i class="fa-solid fa-plus"></i>
   </button>
@@ -33,20 +31,24 @@
         <a href="index.html" target="_blank" class="flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-slate-800 transition text-slate-400 hover:text-white"><i class="fa-solid fa-store"></i> View Live Store</a>
       </nav>
     </div>
-    <div class="text-[10px] text-slate-500 font-medium">Admin Panel v10.0 VIP</div>
+    <div class="text-[10px] text-slate-500 font-medium">Admin Panel v11.0 VIP</div>
   </aside>
 
   <main class="flex-1 flex flex-col h-screen overflow-y-auto relative">
     <header class="bg-white/80 backdrop-blur-md border-b px-4 sm:px-8 py-4 flex justify-between items-center shadow-sm sticky top-0 z-30">
-      <div class="flex items-center gap-3">
+      <div class="flex items-center gap-2 sm:gap-3">
         <h2 class="text-sm sm:text-base font-black text-slate-900">VIP Dashboard</h2>
       </div>
-      <div class="flex items-center gap-3">
+      <div class="flex items-center gap-2 sm:gap-3">
+        <!-- NEW FORCE REFRESH BUTTON -->
+        <button onclick="window.forceRefresh()" class="bg-emerald-100 text-emerald-700 hover:bg-emerald-200 px-3 py-1.5 sm:py-2 rounded-xl text-[10px] sm:text-xs font-bold transition flex items-center gap-1.5 border border-emerald-200">
+          <i class="fa-solid fa-arrows-rotate"></i> <span class="hidden sm:inline">Refresh</span>
+        </button>
+        
         <button onclick="window.openForm()" class="hidden md:flex bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-xl text-xs font-bold shadow-md transition items-center gap-2">
           <i class="fa-solid fa-plus"></i> Add Product
         </button>
-        <a href="index.html" target="_blank" class="md:hidden text-[10px] font-bold bg-slate-100 text-slate-600 px-3 py-2 rounded-xl border hover:bg-slate-200 transition"><i class="fa-solid fa-store"></i> Store</a>
-        <span class="text-[10px] sm:text-xs font-bold bg-indigo-50 text-indigo-600 px-3 py-1.5 rounded-full border border-indigo-100 hidden sm:inline-block">Admin Mode</span>
+        <a href="index.html" target="_blank" class="md:hidden text-[10px] font-bold bg-slate-100 text-slate-600 px-3 py-1.5 rounded-xl border hover:bg-slate-200 transition"><i class="fa-solid fa-store"></i> Store</a>
       </div>
     </header>
 
@@ -77,7 +79,7 @@
         </div>
       </div>
 
-      <!-- INVENTORY SECTION WITH CHIPS -->
+      <!-- INVENTORY -->
       <div class="bg-white rounded-2xl sm:rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
         <div class="p-4 sm:p-6 border-b bg-white space-y-4">
           <div class="flex justify-between items-center">
@@ -86,8 +88,6 @@
               <i class="fa-solid fa-trash-can mr-1.5"></i> Delete (<span id="selectedCount">0</span>)
             </button>
           </div>
-          
-          <!-- APP STYLE CHIPS FILTER -->
           <div class="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
             <button onclick="window.filterTable('All')" class="chip-btn px-4 py-1.5 rounded-full text-xs font-bold bg-indigo-600 text-white transition shrink-0 shadow-sm">All Products</button>
             <button onclick="window.filterTable('VFD Drives')" class="chip-btn px-4 py-1.5 rounded-full text-xs font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 transition shrink-0">VFD Drives</button>
@@ -95,20 +95,18 @@
             <button onclick="window.filterTable('Servo Motors')" class="chip-btn px-4 py-1.5 rounded-full text-xs font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 transition shrink-0">Servo Motors</button>
           </div>
         </div>
-
         <div class="overflow-x-auto">
           <table class="w-full text-left whitespace-nowrap">
             <thead class="bg-slate-50 text-[10px] uppercase text-slate-400 font-bold border-b">
               <tr>
                 <th class="p-3 sm:p-4 w-10"><input type="checkbox" id="selectAll" onclick="window.toggleSelectAll(this)" class="rounded accent-indigo-600 cursor-pointer w-4 h-4"></th>
-                <th class="p-3 sm:p-4">Product Info</th>
+                <th class="p-3 sm:p-4">Product Info (Tap to Edit)</th>
                 <th class="p-3 sm:p-4">Category</th>
                 <th class="p-3 sm:p-4">Price</th>
-                <th class="p-3 sm:p-4">Actions</th>
               </tr>
             </thead>
             <tbody id="adminTable">
-              <tr><td colspan="5" class="p-8 text-xs text-slate-400 text-center"><i class="fa-solid fa-spinner fa-spin mr-2"></i> Loading inventory...</td></tr>
+              <tr><td colspan="4" class="p-8 text-xs text-slate-400 text-center"><i class="fa-solid fa-spinner fa-spin mr-2"></i> Loading inventory...</td></tr>
             </tbody>
           </table>
         </div>
@@ -116,62 +114,29 @@
     </div>
   </main>
 
-  <!-- SCREEN POPUP (MODAL) FOR ADD/EDIT -->
+  <!-- FORM MODAL -->
   <div id="formModal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4 hidden transition-opacity opacity-0 duration-300">
     <div class="bg-white w-full max-w-2xl rounded-3xl shadow-2xl relative flex flex-col max-h-[90vh] overflow-hidden transform scale-95 transition-transform duration-300" id="formModalContent">
-      
-      <!-- Modal Header -->
       <div class="px-6 py-4 border-b flex justify-between items-center bg-slate-50">
         <h3 id="formTitle" class="font-black text-sm sm:text-base text-slate-900">Add New Product</h3>
         <button onclick="window.closeForm()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 w-8 h-8 rounded-full flex items-center justify-center transition"><i class="fa-solid fa-xmark"></i></button>
       </div>
-
-      <!-- Modal Body (Scrollable) -->
       <div class="p-6 overflow-y-auto flex-1 space-y-4 bg-white">
         <input type="hidden" id="editId">
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label class="block text-[10px] font-bold text-slate-400 mb-1.5 uppercase">Model Name</label>
-            <input id="pTitle" placeholder="e.g. Yaskawa VFD" class="border p-3 rounded-xl text-xs bg-slate-50 w-full outline-none focus:ring-2 focus:ring-indigo-600/20 focus:bg-white transition">
-          </div>
-          <div>
-            <label class="block text-[10px] font-bold text-slate-400 mb-1.5 uppercase">Brand Name</label>
-            <input id="pBrand" placeholder="e.g. Yaskawa" class="border p-3 rounded-xl text-xs bg-slate-50 w-full outline-none focus:ring-2 focus:ring-indigo-600/20 focus:bg-white transition">
-          </div>
-          <div>
-            <label class="block text-[10px] font-bold text-slate-400 mb-1.5 uppercase">Category</label>
-            <select id="pCategory" class="border p-3 rounded-xl text-xs bg-slate-50 text-slate-700 w-full outline-none focus:ring-2 focus:ring-indigo-600/20 focus:bg-white transition">
-              <option value="">Select Category</option>
-              <option value="VFD Drives">VFD Drives</option>
-              <option value="Solar Inverters">Solar Inverters</option>
-              <option value="Servo Motors">Servo Motors & Drives</option>
-            </select>
-          </div>
-          <div>
-            <label class="block text-[10px] font-bold text-slate-400 mb-1.5 uppercase">Price (PKR)</label>
-            <input id="pPrice" type="number" placeholder="e.g. 25000" class="border p-3 rounded-xl text-xs bg-slate-50 w-full outline-none focus:ring-2 focus:ring-indigo-600/20 focus:bg-white transition">
-          </div>
-          <div>
-            <label class="block text-[10px] font-bold text-slate-400 mb-1.5 uppercase">Power Rating</label>
-            <input id="pPower" placeholder="e.g. 3 HP / 2.2 kW" class="border p-3 rounded-xl text-xs bg-slate-50 w-full outline-none focus:ring-2 focus:ring-indigo-600/20 focus:bg-white transition">
-          </div>
-          <div>
-            <label class="block text-[10px] font-bold text-slate-400 mb-1.5 uppercase">Video Link (TikTok/YT)</label>
-            <input id="pVideo" placeholder="https://..." class="border p-3 rounded-xl text-xs bg-slate-50 w-full outline-none focus:ring-2 focus:ring-indigo-600/20 focus:bg-white transition">
-          </div>
-          <div class="sm:col-span-2">
-            <label class="block text-[10px] font-bold text-slate-400 mb-1.5 uppercase">Multiple Image Links (Comma separated)</label>
-            <textarea id="pImage" rows="2" placeholder="https://i.ibb.co/..., https://i.ibb.co/..." class="border p-3 rounded-xl text-xs bg-slate-50 w-full outline-none focus:ring-2 focus:ring-indigo-600/20 focus:bg-white transition resize-none"></textarea>
-          </div>
+          <div><label class="block text-[10px] font-bold text-slate-400 mb-1.5 uppercase">Model Name</label><input id="pTitle" class="border p-3 rounded-xl text-xs bg-slate-50 w-full outline-none focus:ring-2 focus:ring-indigo-600/20 focus:bg-white transition"></div>
+          <div><label class="block text-[10px] font-bold text-slate-400 mb-1.5 uppercase">Brand Name</label><input id="pBrand" class="border p-3 rounded-xl text-xs bg-slate-50 w-full outline-none focus:ring-2 focus:ring-indigo-600/20 focus:bg-white transition"></div>
+          <div><label class="block text-[10px] font-bold text-slate-400 mb-1.5 uppercase">Category</label><select id="pCategory" class="border p-3 rounded-xl text-xs bg-slate-50 w-full outline-none"><option value="">Select Category</option><option value="VFD Drives">VFD Drives</option><option value="Solar Inverters">Solar Inverters</option><option value="Servo Motors">Servo Motors</option></select></div>
+          <div><label class="block text-[10px] font-bold text-slate-400 mb-1.5 uppercase">Price (PKR)</label><input id="pPrice" type="number" class="border p-3 rounded-xl text-xs bg-slate-50 w-full outline-none focus:ring-2 focus:ring-indigo-600/20"></div>
+          <div><label class="block text-[10px] font-bold text-slate-400 mb-1.5 uppercase">Power</label><input id="pPower" class="border p-3 rounded-xl text-xs bg-slate-50 w-full outline-none"></div>
+          <div><label class="block text-[10px] font-bold text-slate-400 mb-1.5 uppercase">Video Link</label><input id="pVideo" class="border p-3 rounded-xl text-xs bg-slate-50 w-full outline-none"></div>
+          <div class="sm:col-span-2"><label class="block text-[10px] font-bold text-slate-400 mb-1.5 uppercase">Images (Comma separated)</label><textarea id="pImage" rows="2" class="border p-3 rounded-xl text-xs bg-slate-50 w-full outline-none resize-none"></textarea></div>
         </div>
       </div>
-
-      <!-- Modal Footer -->
       <div class="px-6 py-4 border-t bg-slate-50 flex gap-3">
         <button id="saveBtn" class="flex-1 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold shadow-lg shadow-indigo-600/30 transition">Save Product</button>
-        <button onclick="window.closeForm()" class="px-6 py-3 bg-white border border-slate-200 hover:bg-slate-100 text-slate-700 rounded-xl text-xs font-bold transition shadow-sm">Cancel</button>
+        <button id="delBtn" onclick="window.removeCurrentVDF()" class="hidden px-6 py-3 bg-rose-100 text-rose-600 rounded-xl text-xs font-bold hover:bg-rose-200 transition"><i class="fa-solid fa-trash"></i></button>
       </div>
-
     </div>
   </div>
 
@@ -191,7 +156,14 @@
     const fallbackImg = "https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=500";
     let allProductsData = [];
 
-    // --- TOAST UI ---
+    // CUSTOM REFRESH TO BREAK CACHE
+    window.forceRefresh = () => {
+      showToast("Updating Code...", "success");
+      setTimeout(() => {
+        window.location.href = window.location.pathname + '?v=' + new Date().getTime();
+      }, 800);
+    };
+
     function showToast(message, type = 'success') {
       const container = document.getElementById('toastContainer');
       const toast = document.createElement('div');
@@ -205,7 +177,6 @@
       }, 3000);
     }
 
-    // --- MODAL CONTROLS ---
     const modal = document.getElementById('formModal');
     const modalContent = document.getElementById('formModalContent');
 
@@ -237,15 +208,11 @@
       document.getElementById('pImage').value = '';
       document.getElementById('saveBtn').innerText = "Save Product";
       document.getElementById('formTitle').innerText = "Add New Product";
+      document.getElementById('delBtn').classList.add('hidden');
     }
 
-    // --- DATABASE OPERATIONS ---
     async function saveVDF() {
       const id = document.getElementById('editId').value;
-      const imgInput = document.getElementById('pImage').value.trim();
-      const now = new Date();
-      const formattedDate = now.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
-
       const data = {
         title: document.getElementById('pTitle').value.trim(),
         brand: document.getElementById('pBrand').value.trim(),
@@ -253,109 +220,67 @@
         price: Number(document.getElementById('pPrice').value),
         power: document.getElementById('pPower').value.trim(),
         videoUrl: document.getElementById('pVideo').value.trim(),
-        images: imgInput || fallbackImg,
-        image: imgInput ? imgInput.split(',')[0].trim() : fallbackImg,
-        createdAt: id ? undefined : formattedDate
+        images: document.getElementById('pImage').value.trim() || fallbackImg,
+        image: document.getElementById('pImage').value.trim() ? document.getElementById('pImage').value.trim().split(',')[0].trim() : fallbackImg,
       };
 
-      if(!data.title || !data.price) { 
-        showToast("Model Name aur Price lazmi likhein!", "error"); 
-        return; 
-      }
-      
-      const btn = document.getElementById('saveBtn');
-      btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Saving...`;
+      if(!data.title || !data.price) return showToast("Name & Price required!", "error"); 
       
       try {
         if(id) { 
           await updateDoc(doc(db, "products", id), data); 
-          showToast("Product Updated Successfully!");
+          showToast("Updated Successfully!");
         } else { 
           await addDoc(collection(db, "products"), data); 
-          showToast("Product Added Successfully!");
+          showToast("Added Successfully!");
         }
         window.closeForm();
         loadDashboard();
-      } catch (err) {
-        showToast("Error: " + err.message, "error");
-      } finally {
-        btn.innerHTML = "Save Product";
-      }
+      } catch (err) { showToast("Error: " + err.message, "error"); }
     }
 
     async function loadDashboard() {
-      try {
-        const snap = await getDocs(collection(db, "products"));
-        allProductsData = [];
-        document.getElementById('totalCount').innerText = snap.size;
-        
-        snap.forEach(d => {
-          allProductsData.push({ id: d.id, ...d.data() });
-        });
-        
-        renderAdminTable(allProductsData);
-      } catch (err) {
-        console.error(err);
-      }
+      const snap = await getDocs(collection(db, "products"));
+      allProductsData = [];
+      document.getElementById('totalCount').innerText = snap.size;
+      snap.forEach(d => allProductsData.push({ id: d.id, ...d.data() }));
+      renderAdminTable(allProductsData);
     }
 
     function renderAdminTable(data) {
       const table = document.getElementById('adminTable');
       table.innerHTML = '';
-      
-      if(data.length === 0) { 
-        table.innerHTML = `<tr><td colspan="5" class="p-8 text-xs text-slate-400 text-center">No products found.</td></tr>`; 
-        return; 
-      }
+      if(data.length === 0) return table.innerHTML = `<tr><td colspan="4" class="p-8 text-xs text-slate-400 text-center">No products found.</td></tr>`; 
       
       data.forEach(p => {
-        let firstImg = fallbackImg;
-        if(p.image && p.image.startsWith('http')) firstImg = p.image;
-        else if(p.images && p.images.split(',')[0].trim().startsWith('http')) firstImg = p.images.split(',')[0].trim();
+        let firstImg = (p.image && p.image.startsWith('http')) ? p.image : ((p.images && p.images.split(',')[0].trim().startsWith('http')) ? p.images.split(',')[0].trim() : fallbackImg);
         
         table.innerHTML += `
           <tr class="border-t text-xs hover:bg-slate-50 transition group">
             <td class="p-3 sm:p-4"><input type="checkbox" value="${p.id}" onchange="window.updateBulkButton()" class="row-checkbox rounded accent-indigo-600 cursor-pointer w-4 h-4"></td>
-            
-            <!-- NOW ENTIRE PRODUCT INFO AREA IS CLICKABLE TO EDIT -->
-            <td class="p-3 sm:p-4 flex items-center gap-3 cursor-pointer" onclick="window.editMode('${p.id}')">
+            <td class="p-3 sm:p-4 flex items-center gap-3 cursor-pointer relative" onclick="window.editMode('${p.id}')">
               <img src="${firstImg}" onerror="this.src='${fallbackImg}'" class="w-12 h-12 object-cover rounded-xl border shadow-sm">
               <div>
-                <div class="font-black text-slate-900 text-sm group-hover:text-indigo-600 transition">${p.title || 'Untitled'}</div>
+                <div class="font-black text-slate-900 text-sm">${p.title || 'Untitled'}</div>
                 <div class="text-[10px] text-slate-500 font-bold uppercase mt-0.5">${p.brand || 'No Brand'} ${p.power ? '• '+p.power : ''}</div>
-                <div class="text-[10px] text-indigo-500 font-bold mt-1 md:hidden"><i class="fa-solid fa-pen mr-1"></i>Tap to edit</div>
+                <div class="text-[10px] text-indigo-500 font-bold mt-1 bg-indigo-50 inline-block px-2 py-0.5 rounded-full"><i class="fa-solid fa-pen mr-1"></i>Tap to edit</div>
               </div>
             </td>
-
             <td class="p-3 sm:p-4"><span class="bg-slate-100 text-slate-600 px-2.5 py-1 rounded-md text-[10px] font-bold">${p.category || 'General'}</span></td>
             <td class="p-3 sm:p-4 font-mono font-black text-indigo-600">Rs. ${Number(p.price || 0).toLocaleString()}</td>
-            <td class="p-3 sm:p-4">
-              <div class="flex gap-2">
-                <button onclick="window.editMode('${p.id}')" class="hidden md:flex bg-indigo-50 hover:bg-indigo-100 text-indigo-600 w-8 h-8 rounded-lg items-center justify-center transition"><i class="fa-solid fa-pen"></i></button>
-                <button onclick="window.removeVDF('${p.id}')" class="bg-rose-50 hover:bg-rose-100 text-rose-600 w-8 h-8 rounded-lg flex items-center justify-center transition"><i class="fa-solid fa-trash"></i></button>
-              </div>
-            </td>
           </tr>`;
       });
     }
 
-    // --- CHIPS FILTERING ---
     window.filterTable = (cat) => {
-      // Update Chips Style
       document.querySelectorAll('.chip-btn').forEach(btn => {
-        if(btn.innerText.includes(cat) || (cat === 'All' && btn.innerText === 'All Products')) {
-          btn.className = "chip-btn px-4 py-1.5 rounded-full text-xs font-bold bg-indigo-600 text-white transition shrink-0 shadow-sm";
-        } else {
-          btn.className = "chip-btn px-4 py-1.5 rounded-full text-xs font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 transition shrink-0";
-        }
+        if(btn.innerText.includes(cat) || (cat === 'All' && btn.innerText === 'All Products')) btn.className = "chip-btn px-4 py-1.5 rounded-full text-xs font-bold bg-indigo-600 text-white transition shrink-0 shadow-sm";
+        else btn.className = "chip-btn px-4 py-1.5 rounded-full text-xs font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 transition shrink-0";
       });
-      
-      // Filter Data
       if(cat === 'All') renderAdminTable(allProductsData);
       else renderAdminTable(allProductsData.filter(p => p.category === cat || (cat === 'Servo Motors' && p.category && p.category.includes('Servo'))));
     };
 
-    // --- BULK OPERATIONS ---
     window.toggleSelectAll = (master) => {
       document.querySelectorAll('.row-checkbox').forEach(cb => cb.checked = master.checked);
       window.updateBulkButton();
@@ -372,18 +297,12 @@
     window.deleteSelected = async () => {
       const selected = document.querySelectorAll('.row-checkbox:checked');
       if(selected.length === 0) return;
-      if(confirm(`Kya aap waqai select kiye gaye ${selected.length} products delete karna chahti hain?`)) {
-        try {
-          for(let cb of selected) await deleteDoc(doc(db, "products", cb.value));
-          showToast("Selected products deleted!");
-          loadDashboard();
-          document.getElementById('bulkDeleteBtn').classList.add('hidden');
-          document.getElementById('selectAll').checked = false;
-        } catch(e) { showToast("Error: " + e.message, "error"); }
+      if(confirm(`Delete ${selected.length} products?`)) {
+        for(let cb of selected) await deleteDoc(doc(db, "products", cb.value));
+        showToast("Deleted!"); loadDashboard();
       }
     };
 
-    // --- INDIVIDUAL ACTIONS ---
     window.editMode = (id) => {
       const p = allProductsData.find(item => item.id === id);
       if(p) {
@@ -397,19 +316,20 @@
         document.getElementById('pImage').value = p.images || p.image || '';
         document.getElementById('saveBtn').innerText = "Update Product";
         document.getElementById('formTitle').innerText = "Edit Product";
+        document.getElementById('delBtn').classList.remove('hidden');
         window.openForm();
       }
     };
 
-    window.removeVDF = async (id) => { 
-      if(confirm("Kya aap waqai is product ko delete karna chahti hain?")) { 
-        try {
-          await deleteDoc(doc(db, "products", id));
-          showToast("Product deleted!");
-          loadDashboard();
-        } catch(e) { showToast("Error: " + e.message, "error"); }
-      } 
-    }
+    window.removeCurrentVDF = async () => {
+      const id = document.getElementById('editId').value;
+      if(id && confirm("Delete this product?")) {
+        await deleteDoc(doc(db, "products", id));
+        showToast("Deleted!");
+        window.closeForm();
+        loadDashboard();
+      }
+    };
 
     document.getElementById('saveBtn').addEventListener('click', saveVDF);
     loadDashboard();
